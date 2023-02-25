@@ -1,0 +1,37 @@
+Valid Compressed String JAVA Solution
+
+class Solution {
+    static int checkCompressed(String S, String T) {
+        int len=0;
+        int i=0 , j =0 ;
+        while( i<S.length() && j< T.length())
+        {
+            char s= S.charAt(i);
+            char t= T.charAt(j);
+            if( Character.isLetter(t))
+            {
+                if( s!=t)
+                    return 0;
+                    
+                i++; j++;
+            }
+            else
+            {
+                int count = 0;
+                while (j < T.length() && Character.isDigit(T.charAt(j))) {
+                    count = count * 10 + (T.charAt(j) - '0');
+                        j++;
+                }
+                i += count;
+            }
+        }
+        if( i==S.length() && j==T.length())
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+}
