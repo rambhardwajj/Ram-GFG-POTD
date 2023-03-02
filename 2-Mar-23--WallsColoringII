@@ -1,0 +1,24 @@
+Walls Coloring II
+
+class Solution{
+	int minCost(int [][] costs) {
+   if( costs.length ==1  && costs[0].length ==1) return costs[0][0]; 
+	    if( costs[0].length==1 ) return -1;
+	    int prevIdx = -1; int cost=0; int prev = -1;
+	    for( int i =0 ;i< costs.length; i++)
+	    {
+	        int min = Integer.MAX_VALUE;
+	        for( int j =0 ; j< costs[0].length; j++)
+	        {
+	            if( costs[i][j]<=min && j!=prev)
+	            {
+	                min = costs[i][j];
+	                prevIdx= j;
+	            }
+	        }
+	        prev= prevIdx;
+	        cost+=costs[i][prevIdx];
+	    }
+	    return cost;
+	}
+}
