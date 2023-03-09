@@ -1,0 +1,83 @@
+Find Anagram in Linkedlist
+/* 
+Definition for singly Link List Node
+class Node
+{
+    char data;
+    Node next;
+
+    Node(char x){
+        data = x;
+        next = null;
+    }
+}
+You can also use the following for printing the link list.
+Node.printList(Node node);
+*/
+
+class Solution {
+    public static ArrayList<Node> findAnagrams(Node head, String s) 
+    {
+        ArrayList<Node> res = new ArrayList<>();
+        Node temp = head ,jtemp = head, itemp = head; 
+        int size =0 , j =0 , i=0 , k = s.length();
+        
+        while(temp!=null)
+            temp = temp.next; size++;
+        
+        while( j< size)
+        {
+            if( j-i+1<k && j< size )
+            {
+                j++;
+                jtemp=jtemp.next;
+            }
+            else if( j-i+1==k && j< size)
+            {
+                temp = jtemp.next;  jtemp.next=null;
+                if( isAna( s, itemp))
+                    res.add( itemp);
+                else
+                {
+                    j++; i++; 
+                    jtemp=jtemp.next; itemp=itemp.next;
+                    if(temp==null) break;
+                    continue;
+                }
+                if( temp!=null)
+                {
+                    itemp= temp;  jtemp=temp;
+                    j++;  i=j;
+                }
+                else 
+                    break;
+            }
+        }
+        return res;
+    }
+    public static boolean isAna( String s , Node head )
+    {
+        HashMap <Character , Integer> hm = new HashMap<>();
+        for(int i =0 ;i< s.length( ); i++)
+        {
+            char ch = s.charAt(i);
+            hm.put(ch , hm.getOrDefault(ch, 0)+1);
+        }
+        Node temp = head; 
+        while( temp != null)
+        {
+            if ( hm.containsKey(temp.data) )
+            {
+                hm.put( temp.data, hm.get(temp.data)-1);
+                if( hm.get( temp.data)==0)
+                    hm.remove( temp.data);
+            }
+            else
+                return false;
+                
+            temp=temp.next;
+        }
+        if(!hm.isEmpty()) return false;
+            return true;
+    }
+}
