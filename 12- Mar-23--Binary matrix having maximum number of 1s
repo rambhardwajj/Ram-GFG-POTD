@@ -1,0 +1,22 @@
+Binary matrix having maximum number of 1s
+
+class Solution {
+    public int[] findMaxRow(int mat[][], int N) {
+        int maxRow= 0; int max = 0;
+        for( int i =0 ; i< mat.length; i++)
+        {
+            int c=0;
+            for( int j =mat[i].length-1; j>=0; j--){
+                if( mat[i][j]==1)
+                    c++;
+                else
+                    break;
+            }
+            if(c>max){
+                max = c; 
+                maxRow= i;
+            }
+        }
+        return new int[] {maxRow, max};
+    }
+}
